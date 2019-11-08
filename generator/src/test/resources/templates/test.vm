@@ -1,0 +1,41 @@
+##单行注释
+#*多行注释*#
+#**
+*   多行注释
+*#
+
+hello $!test
+属性 $!test.id
+方法 $!test.getId()
+
+有参方法 $!test.setId("2")
+
+属性 $test.id
+方法 $test.getId()
+
+#set( $haha = "haha")
+
+#set( $a = 1)
+
+haha + a = $haha + $a
+
+自从Velocity 1.6, 所有的数组引用被看这固定长度列表。
+list是否为空$list.isEmpty()
+list size $list.size()
+list get $list.get(2)
+list set $list.set(2,"set测试")
+list get $list.get(2)
+foreach:
+#foreach($s in $!list)
+    v:$!s
+#end
+
+#[[
+#foreach($s in $!list)
+v:$!s
+#end
+]]#
+
+planet_sys_operation_log
+
+

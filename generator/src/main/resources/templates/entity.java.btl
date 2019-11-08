@@ -56,7 +56,6 @@ public class ${entity} implements Serializable {
     <% if(isNotEmpty(field.comment)){ %>
         <% if(swagger2){ %>
     @ApiModelProperty(value = "${field.comment}")
-    @MyLog(value = "${field.comment}")
         <% }else{ %>
     /**
      * ${field.comment}

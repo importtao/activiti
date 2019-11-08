@@ -45,7 +45,15 @@ public class PackageConfig {
     /**
      * Entity包名
      */
-    private String entity = "entity";
+    private String entity = "model";
+
+
+    private String example = "example";
+
+    /**
+     * EntityQuery包名
+     */
+    private String query = "query";
     /**
      * Service包名
      */
@@ -57,7 +65,7 @@ public class PackageConfig {
     /**
      * Mapper包名
      */
-    private String mapper = "mapper";
+    private String mapper = "dao";
     /**
      * Mapper XML包名
      */

@@ -6,10 +6,11 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,31 +49,48 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
 
         // set beetl engine
-        mpg.setTemplateEngine(new BeetlTemplateEngine());
+        mpg.setTemplateEngine(new VelocityTemplateEngine());
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("impporttao");
+        gc.setAuthor("changhu");
+        gc.setBaseColumnList(true);
+        gc.setBaseResultMap(true);
+        gc.setDateType(DateType.ONLY_DATE);
+
         gc.setOpen(false);
         //实体属性 Swagger2 注解
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
+        /*#数据源
+        spring.datasource.url=jdbc:mysql://47.110.244.88:3307/planet_dev?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true
+        spring.datasource.username=root
+        spring.datasource.password=planet++520*/
+
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/seckill?useUnicode=true&useSSL=false&characterEncoding=gbk");
+        /*DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:mysql://localhost:3306/seckill?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true");
         dsc.setSchemaName("seckill");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
+        mpg.setDataSource(dsc);*/
+
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:mysql://47.110.244.88:3307/planet_dev?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true");
+        dsc.setSchemaName("planet_dev");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("planet++520");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("test"));
-        pc.setParent("me.importtao");
+        pc.setModuleName(scanner("planet"));
+        pc.setParent("com.planet");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -84,9 +102,9 @@ public class CodeGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+        //String templatePath = "/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
+         String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
@@ -110,6 +128,9 @@ public class CodeGenerator {
         });
         */
         cfg.setFileOutConfigList(focList);
+
+        //ConfigBuilder configBuilder = new ConfigBuilder(null,null,null,null,null);
+        //cfg.setConfig(configBuilder);
         mpg.setCfg(cfg);
 
         // 配置模板
@@ -141,6 +162,7 @@ public class CodeGenerator {
         mpg.setStrategy(strategy);
         //mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
+        //mpg.executeSingleQuery();
     }
 
 }

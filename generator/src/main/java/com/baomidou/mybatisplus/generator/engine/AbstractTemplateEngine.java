@@ -96,6 +96,15 @@ public abstract class AbstractTemplateEngine {
                         writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
                     }
                 }
+
+                // MpQuery.java
+                String entityQueryName = tableInfo.getEntityName();
+                if (null != entityName && null != pathInfo.get(ConstVal.QUERY_PATH)) {
+                    String entityFile = String.format((pathInfo.get(ConstVal.QUERY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.OTHER, entityFile)) {
+                        writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
+                    }
+                }
                 // MpMapper.java
                 if (null != tableInfo.getMapperName() && null != pathInfo.get(ConstVal.MAPPER_PATH)) {
                     String mapperFile = String.format((pathInfo.get(ConstVal.MAPPER_PATH) + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
@@ -131,6 +140,52 @@ public abstract class AbstractTemplateEngine {
                         writer(objectMap, templateFilePath(template.getController()), controllerFile);
                     }
                 }
+
+                // Example.java
+                if (null != tableInfo.getExampleName() && null != pathInfo.get(ConstVal.EXAMPLE_PATH)) {
+                    String exampleFile = String.format((pathInfo.get(ConstVal.EXAMPLE_PATH) + File.separator + tableInfo.getExampleName() + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.EXAMPLE, exampleFile)) {
+                        writer(objectMap, templateFilePath(template.getExample()), exampleFile);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("无法创建文件，请检查配置信息！", e);
+        }
+        return this;
+    }
+
+    public AbstractTemplateEngine singleQueryOutput() {
+        try {
+            List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
+            for (TableInfo tableInfo : tableInfoList) {
+                Map<String, Object> objectMap = getObjectMap(tableInfo);
+                Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
+                TemplateConfig template = getConfigBuilder().getTemplate();
+                // 自定义内容
+                InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
+                if (null != injectionConfig) {
+                    injectionConfig.initMap();
+                    objectMap.put("cfg", injectionConfig.getMap());
+                    List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
+                    if (CollectionUtils.isNotEmpty(focList)) {
+                        for (FileOutConfig foc : focList) {
+                            if (isCreate(FileType.OTHER, foc.outputFile(tableInfo))) {
+                                writer(objectMap, foc.getTemplatePath(), foc.outputFile(tableInfo));
+                            }
+                        }
+                    }
+                }
+
+                // Mp.java
+                String entityName = tableInfo.getEntityName();
+                if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
+                    String entityFile = String.format((pathInfo.get(ConstVal.ENTITY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
+                    if (isCreate(FileType.ENTITY, entityFile)) {
+                        writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
+                    }
+                }
+
             }
         } catch (Exception e) {
             logger.error("无法创建文件，请检查配置信息！", e);

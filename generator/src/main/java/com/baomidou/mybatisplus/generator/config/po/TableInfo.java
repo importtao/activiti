@@ -42,6 +42,8 @@ public class TableInfo {
     private String name;
     private String comment;
     private String entityName;
+    private String exampleName;
+    private String queryName;
     private String mapperName;
     private String xmlName;
     private String serviceName;

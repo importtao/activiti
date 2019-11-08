@@ -1,7 +1,9 @@
 package ${package.Entity};
 
 #foreach($pkg in ${table.importPackages})
+    #if(${pkg} != "com.baomidou.ant.common.BaseEntity")
 import ${pkg};
+    #end
 #end
 #if(${swagger2})
 import io.swagger.annotations.ApiModel;
@@ -12,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 #end
+import javax.persistence.Id;
+import tk.mybatis.mapper.annotation.KeySql;
 
 /**
  * <p>
@@ -22,12 +26,12 @@ import lombok.experimental.Accessors;
  * @since ${date}
  */
 #if(${entityLombokModel})
-@Data
-#if(${superEntityClass})
+#*#if(${superEntityClass})
 @EqualsAndHashCode(callSuper = true)
 #else
 @EqualsAndHashCode(callSuper = false)
-#end
+#end*#
+@Data
 @Accessors(chain = true)
 #end
 #if(${table.convert})
@@ -37,7 +41,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value="${entity}对象", description="$!{table.comment}")
 #end
 #if(${superEntityClass})
-public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+public class ${entity} #*extends*# #*${superEntityClass}*##if(${activeRecord})<${entity}>#end {
 #elseif(${activeRecord})
 public class ${entity} extends Model<${entity}> {
 #else
@@ -47,6 +51,9 @@ public class ${entity} implements Serializable {
 #if(${entitySerialVersionUID})
     private static final long serialVersionUID=1L;
 #end
+@Id
+@KeySql(useGeneratedKeys = true)
+private Long id;
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
 
@@ -71,6 +78,7 @@ public class ${entity} implements Serializable {
 #elseif(${field.convert})
     @TableId("${field.name}")
 #end
+
 ## 普通字段
 #elseif(${field.fill})
 ## -----   存在字段填充设置   -----

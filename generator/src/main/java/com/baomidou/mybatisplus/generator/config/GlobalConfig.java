@@ -90,6 +90,8 @@ public class GlobalConfig {
      * %s 为占位符
      */
     private String entityName;
+    private String exampleName;
+    private String queryName;
     private String mapperName;
     private String xmlName;
     private String serviceName;

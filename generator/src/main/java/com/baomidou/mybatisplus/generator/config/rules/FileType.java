@@ -23,6 +23,7 @@ package com.baomidou.mybatisplus.generator.config.rules;
  */
 public enum FileType {
     ENTITY,
+    EXAMPLE,
     MAPPER,
     XML,
     SERVICE,

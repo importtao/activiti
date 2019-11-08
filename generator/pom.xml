@@ -44,6 +44,12 @@
             <artifactId>beetl</artifactId>
             <version>2.9.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
         <dependency>

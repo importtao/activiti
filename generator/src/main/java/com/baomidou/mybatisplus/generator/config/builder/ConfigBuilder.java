@@ -232,6 +232,8 @@ public class ConfigBuilder {
         packageInfo = new HashMap<>(8);
         packageInfo.put(ConstVal.MODULE_NAME, config.getModuleName());
         packageInfo.put(ConstVal.ENTITY, joinPackage(config.getParent(), config.getEntity()));
+        packageInfo.put(ConstVal.EXAMPLE, joinPackage(config.getParent(), config.getExample()));
+        packageInfo.put(ConstVal.QUERY, joinPackage(config.getParent(), config.getQuery()));
         packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper()));
         packageInfo.put(ConstVal.XML, joinPackage(config.getParent(), config.getXml()));
         packageInfo.put(ConstVal.SERVICE, joinPackage(config.getParent(), config.getService()));
@@ -246,6 +248,8 @@ public class ConfigBuilder {
             // 生成路径信息
             pathInfo = new HashMap<>(6);
             setPathInfo(pathInfo, template.getEntity(getGlobalConfig().isKotlin()), outputDir, ConstVal.ENTITY_PATH, ConstVal.ENTITY);
+            setPathInfo(pathInfo, template.getExample(), outputDir, ConstVal.EXAMPLE_PATH, ConstVal.EXAMPLE);
+            setPathInfo(pathInfo, template.getQuery(), outputDir, ConstVal.QUERY_PATH, ConstVal.QUERY);
             setPathInfo(pathInfo, template.getMapper(), outputDir, ConstVal.MAPPER_PATH, ConstVal.MAPPER);
             setPathInfo(pathInfo, template.getXml(), outputDir, ConstVal.XML_PATH, ConstVal.XML);
             setPathInfo(pathInfo, template.getService(), outputDir, ConstVal.SERVICE_PATH, ConstVal.SERVICE);
@@ -338,6 +342,19 @@ public class ConfigBuilder {
             } else {
                 tableInfo.setMapperName(entityName + ConstVal.MAPPER);
             }
+
+            if (StringUtils.isNotEmpty(globalConfig.getExampleName())) {
+                tableInfo.setExampleName(String.format(globalConfig.getExampleName(), entityName));
+            } else {
+                tableInfo.setExampleName(entityName + ConstVal.EXAMPLE);
+            }
+
+            if (StringUtils.isNotEmpty(globalConfig.getQueryName())) {
+                tableInfo.setQueryName(String.format(globalConfig.getQueryName(), entityName));
+            } else {
+                tableInfo.setQueryName(entityName + ConstVal.QUERY);
+            }
+
             if (StringUtils.isNotEmpty(globalConfig.getXmlName())) {
                 tableInfo.setXmlName(String.format(globalConfig.getXmlName(), entityName));
             } else {

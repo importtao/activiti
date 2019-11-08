@@ -33,6 +33,9 @@ public class TemplateConfig {
     @Getter(AccessLevel.NONE)
     private String entity = ConstVal.TEMPLATE_ENTITY_JAVA;
 
+    private String example = ConstVal.TEMPLATE_ENTITY_EXAMPLE_JAVA;
+    private String query = ConstVal.TEMPLATE_ENTITY_QUERY_JAVA;
+
     private String entityKt = ConstVal.TEMPLATE_ENTITY_KT;
 
     private String service = ConstVal.TEMPLATE_SERVICE;

@@ -1,7 +1,14 @@
 package ${package.Mapper};
 
 import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
+#*import ${superMapperClassPackage};*#
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+import tk.mybatis.mapper.common.Mapper;
+import com.planet.mybatisCommonMapper.InsertListMapper;
+
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,7 +21,16 @@ import ${superMapperClassPackage};
 #if(${kotlin})
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface ${table.mapperName} extends #*${superMapperClass}*#Mapper<${entity}>,InsertListMapper<${entity}> {
+    @Update("update ${table.name} set deleted=1 where id = #{id}")
+    int logicDeleteByPrimaryKey(@Param("id") Long id);
+
+    @Update("update ${table.name} set deleted=1 where activity_id = #{aId}")
+    int logicDeleteByaId(@Param("aId") Long aId);
+
+    int logicDeleteByPrimaryKeyList(List<Long> ids);
+
+    List<${entity}> selectByAIdList(List<Long> aList);
 
 }
 #end

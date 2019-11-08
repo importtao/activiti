@@ -7,11 +7,11 @@ spring:
   application:
     name: activiti # 项目名称尽量用小写
   datasource:
-    #url: jdbc:mysql://47.110.244.88:3307/planet_dev?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true
-    url: jdbc:mysql://127.0.0.1/seckill?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true
+    url: jdbc:mysql://47.110.244.88:3307/planet_dev?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true
+    #url: jdbc:mysql://127.0.0.1/seckill?useUnicode=true&autoReconnect=true&rewriteBatchedStatements=TRUE&allowMultiQueries=true
     username: root
-    #password: planet++520
-    password: root
+    password: planet++520
+    #password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     platform: mysql
     maxPoolSize: 5
@@ -30,6 +30,8 @@ spring:
         max-wait: 1000
         min-idle: 1
       shutdown-timeout: 100
+
+
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
   # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
@@ -67,3 +69,12 @@ mybatis-plus:
     #配置JdbcTypeForNull, oracle数据库必须配置
     jdbc-type-for-null: 'null'
 # 这里包括含了dev环境下的其他配置文件，比如我们这里还有个application-dev_redis.xml文件配置的是dev环境的redis配置，则
+
+# actuator
+management:
+  security:
+    enabled: false
+  server:
+    port: 9000
+logging:
+  config: classpath:logback-spring.xml

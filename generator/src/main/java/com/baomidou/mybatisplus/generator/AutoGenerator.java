@@ -103,6 +103,24 @@ public class AutoGenerator {
         logger.debug("==========================文件生成完成！！！==========================");
     }
 
+    public void executeSingleQuery() {
+        logger.debug("==========================准备生成文件...==========================");
+        // 初始化配置
+        if (null == config) {
+            config = new ConfigBuilder(packageInfo, dataSource, strategy, template, globalConfig);
+            if (null != injectionConfig) {
+                injectionConfig.setConfig(config);
+            }
+        }
+        if (null == templateEngine) {
+            // 为了兼容之前逻辑，采用 Velocity 引擎 【 默认 】
+            templateEngine = new VelocityTemplateEngine();
+        }
+        // 模板引擎初始化执行文件输出
+        templateEngine.init(this.pretreatmentConfigBuilder(config)).mkdirs().singleQueryOutput().open();
+        logger.debug("==========================文件生成完成！！！==========================");
+    }
+
     /**
      * 开放表信息、预留子类重写
      *
