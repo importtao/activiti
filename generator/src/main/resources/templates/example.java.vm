@@ -109,7 +109,6 @@ public class ${entity}Example {
             criteria.add(new Criterion(condition, value1, value2));
         }
 #foreach($field in ${table.fields})
-    private ${field.propertyType} ${field.propertyName};
     public Criteria and${field.propertyName}IsNull() {
         addCriterion("${field.name} is null");
         return (Criteria) this;
