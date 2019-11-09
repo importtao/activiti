@@ -22,15 +22,6 @@ import java.util.List;
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
 public interface ${table.mapperName} extends #*${superMapperClass}*#Mapper<${entity}>,InsertListMapper<${entity}> {
-    @Update("update ${table.name} set deleted=1 where id = #{id}")
-    int logicDeleteByPrimaryKey(@Param("id") Long id);
-
-    @Update("update ${table.name} set deleted=1 where activity_id = #{aId}")
-    int logicDeleteByaId(@Param("aId") Long aId);
-
-    int logicDeleteByPrimaryKeyList(List<Long> ids);
-
-    List<${entity}> selectByAIdList(List<Long> aList);
 
 }
 #end

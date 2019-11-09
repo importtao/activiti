@@ -36,17 +36,5 @@
     </sql>
 
 #end
-    <!-- 自定义sql -->
-    <update id="logicDeleteByPrimaryKeyList">
-        update ${table.name} set deleted=1 where id in
-        <foreach collection="list" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-    <select id="selectByAIdList" resultType="${package.Entity}.${entity}">
-        select * from ${table.name} where deleted=0 and aid in
-        <foreach collection="list" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
+
 </mapper>
