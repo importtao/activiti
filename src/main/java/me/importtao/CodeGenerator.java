@@ -55,7 +55,7 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("changhu");
+        gc.setAuthor("importtao");
         gc.setBaseColumnList(true);
         gc.setBaseResultMap(true);
         gc.setDateType(DateType.ONLY_DATE);

@@ -16,6 +16,8 @@ import lombok.experimental.Accessors;
 #end
 import javax.persistence.Id;
 import tk.mybatis.mapper.annotation.KeySql;
+import javax.persistence.Table;
+
 
 /**
  * <p>
@@ -33,6 +35,7 @@ import tk.mybatis.mapper.annotation.KeySql;
 #end*#
 @Data
 @Accessors(chain = true)
+@Table(name="${table.name}")
 #end
 #if(${table.convert})
 @TableName("${table.name}")

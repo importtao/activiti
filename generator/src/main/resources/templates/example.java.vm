@@ -108,6 +108,81 @@ public class ${entity}Example {
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
+
+
+
+
+        #foreach($field in ${table.commonFields})##生成公共字段
+            public Criteria and${field.propertyName}IsNull() {
+                addCriterion("${field.name} is null");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}IsNotNull() {
+                addCriterion("${field.name} is not null");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}EqualTo(${field.propertyType} value) {
+                addCriterion("${field.name} =", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}NotEqualTo(${field.propertyType} value) {
+                addCriterion("${field.name} <>", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}GreaterThan(${field.propertyType} value) {
+                addCriterion("${field.name} >", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}GreaterThanOrEqualTo(${field.propertyType} value) {
+                addCriterion("${field.name} >=", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}LessThan(${field.propertyType} value) {
+                addCriterion("${field.name} <", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}LessThanOrEqualTo(${field.propertyType} value) {
+                addCriterion("${field.name} <=", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}In(List<${field.propertyType}> values) {
+                addCriterion("${field.name} in", values, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}NotIn(List<${field.propertyType}> values) {
+                addCriterion("${field.name} not in", values, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}Between(${field.propertyType} value1, ${field.propertyType} value2) {
+                addCriterion("${field.name} between", value1, value2, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}NotBetween(${field.propertyType} value1, ${field.propertyType} value2) {
+                addCriterion("${field.name} not between", value1, value2, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}Like(${field.propertyType} value) {
+                addCriterion("${field.name} like", value, "${field.name}");
+                return (Criteria) this;
+            }
+
+            public Criteria and${field.propertyName}NotLike(${field.propertyType} value) {
+                addCriterion("${field.name} not like", value, "${field.name}");
+                return (Criteria) this;
+            }
+        #end
 #foreach($field in ${table.fields})
     public Criteria and${field.propertyName}IsNull() {
         addCriterion("${field.name} is null");
